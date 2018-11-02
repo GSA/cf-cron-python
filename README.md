@@ -1,4 +1,4 @@
-# Running Cron Jobs on Cloud Foundry
+# Running A Python Cron Job on Cloud Foundry
 
 This repository demonstrates how to run scheduled Python scripts on Cloud Foundry with a very small footprint using a traditional crontab.
 
