@@ -1,8 +1,8 @@
-# Running Cron Jobs on Cloud Foundry
+# Running A Python Cron Job on Cloud Foundry
 
 This repository demonstrates how to run scheduled Python scripts on Cloud Foundry with a very small footprint using a traditional crontab.
 
-Traditional cron daemons need to run as root and have opinionated defaults for logging and error notifications. This makes them unsuitable for running in a containerized environment like Cloud Foundry. Instead of a system cron daemon we're using [supercronic](https://github.com/aptible/supercronic) to run the cron tab. This method is demonstrated without a python script [here](https://github.com/Meshcloud/cf-cron)
+Traditional cron daemons need to run as root and have opinionated defaults for logging and error notifications. This makes them unsuitable for running in a containerized environment like Cloud Foundry. Instead of a system cron daemon we're using [supercronic](https://github.com/aptible/supercronic) to run the cron tab. This method is demonstrated without a python script [here](https://github.com/Meshcloud/cf-cron).
 
 ## How it works
 
