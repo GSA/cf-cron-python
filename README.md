@@ -1,6 +1,6 @@
 # Running A Python Cron Job on Cloud Foundry
 
-This repository demonstrates how to run scheduled Python scripts on Cloud Foundry with a very small footprint using a traditional crontab.
+This repository demonstrates scheduling a Python script on Cloud Foundry using a traditional crontab.
 
 Traditional cron daemons need to run as root and have opinionated defaults for logging and error notifications. This makes them unsuitable for running in a containerized environment like Cloud Foundry. Instead of a system cron daemon we're using [supercronic](https://github.com/aptible/supercronic) to run the cron tab. This method is demonstrated without a python script [here](https://github.com/Meshcloud/cf-cron).
 
@@ -8,9 +8,9 @@ Traditional cron daemons need to run as root and have opinionated defaults for l
 
 This application is built using the binary buildpack and executes `supercronic` on the `crontab` file. The `crontab` file specifies a single cron job, which is to execute `main.py`. You could add additional jobs by adding a new line to `crontab` which specifies a schedule and command to the `crontab`. 
 
-> Note: By default, `supercronic` will log [all output to stderr](https://github.com/aptible/supercronic/issues/16) so we redirect that to stdout in the cf manifest. 
+> Note: By default, `supercronic` will log [all output to stderr](https://github.com/aptible/supercronic/issues/16) so we redirect that to stdout in the cf manifest.
 
-Since some python tasks are a bit more complicated, this example allows you to install apt and debian packages. All of the [`textract` dependencies](https://textract.readthedocs.io/en/stable/installation.html) are currently in `apt.yml` and they will be installed during staging by the cloudfoundry [apt-buildpack](https://github.com/cloudfoundry/apt-buildpack)
+Since some Python tasks are a bit more complicated, this example also demos installation of debian dependencies. All of the [`textract` dependencies](https://textract.readthedocs.io/en/stable/installation.html) are currently in `apt.yml` and they will be installed during staging by the cloudfoundry [apt-buildpack](https://github.com/cloudfoundry/apt-buildpack)
 courtesy of [multi-buildpack](https://github.com/cloudfoundry/multi-buildpack).
 
 After `cf push`ing this sample app to a Cloud Foundry environment, you can see that it executes the job every minute when you log the output with `cf logs APPNAME`:
@@ -25,7 +25,7 @@ After `cf push`ing this sample app to a Cloud Foundry environment, you can see t
 ```
 
 ## A Current Quirk
-At present, `requirements.txt` includes `textract`, which is what requires all of those external dependencies in `apt.yml`. If you `cf push` without `requirements.txt` in your `.cfignore`, the build will fail with the following error log:
+At present, `requirements.txt` includes a reference to a forked version `textract` where a dependency on `pocketsphinx` has been removed. That's because `cf push`ing the application would fail in the build (pip install) stage with the following error log:
 
 ```
 Running setup.py install for pocketsphinx: started
@@ -52,6 +52,4 @@ Failed to compile droplet: Failed to compile droplet: exit status 13
 Exit status 223
 ```
 
-Include it and the build passes. 
-
-Future work in here is aimed at resolving this issue so that more complicated python scripts can be scheduled.
+After a lot of research and local testing, the simplest solution was to remove the `pocketsphinx` dependecy from a forked version of `textract`. Local testing showed `textract` to continue working within a virtual environment as `pocketsphinx` is used for transcribing text from audio files, which is a rare use-case.
