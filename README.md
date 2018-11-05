@@ -25,7 +25,7 @@ After `cf push`ing this sample app to a Cloud Foundry environment, you can see t
 ```
 
 ## A Current Quirk
-At present, `requirements.txt` includes a reference to a forked version `textract` where a dependency on `pocketsphinx` has been removed. That's because `cf push`ing the application would fail in the build (pip install) stage with the following error log:
+At present, `requirements.txt` includes a reference to a forked version of `textract` where a dependency on `pocketsphinx` has been removed. That's because `cf push`ing the application fails in the build (pip install) stage with the following error log:
 
 ```
 Running setup.py install for pocketsphinx: started
@@ -52,4 +52,4 @@ Failed to compile droplet: Failed to compile droplet: exit status 13
 Exit status 223
 ```
 
-After a lot of research and local testing, the simplest solution was to remove the `pocketsphinx` dependecy from a forked version of `textract`. Local testing showed `textract` to continue working within a virtual environment as `pocketsphinx` is used for transcribing text from audio files, which is a rare use-case.
+After a lot of research and local testing, the simplest solution is to remove the `pocketsphinx` dependecy from a forked version of `textract`. Local testing showed `textract` to continue working within a virtual environment without the `pocketsphinx` dependency, so long as you're not trying to extract text from audio files.
