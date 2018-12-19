@@ -1,2 +1,2 @@
-# Run every minute
-*/1 * * * * ./main.py
+# Run every 10 seconds
+*/10 * * * * * * python main.py
