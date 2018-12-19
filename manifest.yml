@@ -1,8 +1,6 @@
 ---
 applications:
-- name: cf-cron
-  memory: 24M
+- name: cf-cron-python
   no-route: true
+  memory: 2GB
   health-check-type: process
-  buildpack: https://github.com/cloudfoundry/multi-buildpack
-  command: chmod u+x ./main.py && exec ./supercronic crontab 2>&1
