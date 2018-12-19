@@ -2,5 +2,5 @@
 applications:
 - name: cf-cron-python
   no-route: true
-  memory: 2GB
+  memory: 900MB
   health-check-type: process

@@ -5,39 +5,16 @@ ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.
     SUPERCRONIC_SHA1SUM=c3b78d342e5413ad39092fd3cfc083a85f5e2b75
 
 RUN apt-get update && apt-get install -y \
-    antiword \
     build-essential \
     ca-certificates \
     curl \
-    flac \
-    ffmpeg \
     gcc \
     git \
     gzip \
-    lame \
-    libav-tools \
-    libjpeg-dev \
-    libmad0 \
-    libpq-dev \
-    libpulse-dev \
-    libsox-fmt-mp3 \
-    libxml2-dev \
-    libxslt1-dev \
     make \
-    musl-dev \
     netcat \
-    poppler-utils \
-    postgresql-common \
-    pstotext \
-    python-dev \
-    python-pip \
-    sox \
     ssh \
-    swig \
     tar \
-    tesseract-ocr \
-    unrtf \
-    zlib1g-dev \
     && curl -fsSLO "$SUPERCRONIC_URL" \
     && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
     && chmod +x "$SUPERCRONIC" \
