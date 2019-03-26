@@ -11,6 +11,7 @@ This application uses `supercronic` on the `crontab` file, all within a Docker c
 Since some Python tasks are a bit more complicated than printing `datetime.datetime.now()`, this example also demos installation of a few debian dependencies and just one python requirement.
 
 The image based on this Dockerfile can be found on DockerHub, so you can push the app to cloud.gov with
+
 ```
 cf push cf-cron-python --docker-image csmcallister/cf-cron-python
 ```
